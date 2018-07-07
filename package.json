@@ -1,0 +1,11 @@
+{
+  "name": "gameanalyzer",
+  "version": "0.0.1",
+  "description": "Game Analyzer",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "bhaskar",
+  "license": "ISC"
+}

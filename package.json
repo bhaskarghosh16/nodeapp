@@ -1,15 +1,14 @@
 {
-  "name": "gameanalyzer",
+  "name": "gameAnalyzer",
   "version": "0.0.1",
-  "description": "Game Analyzer",
-  "main": "index.js",
-  "scripts": {
-    "start": "node server.js"
-  },
+  "description": "game listing application",
+  "main": "server.js",
+  "author": "bhaskar16",
   "dependencies": {
-    "express": "^4.16.3",
-    "mongoose": "^5.2.1"
-  },
-  "author": "bhaskar",
-  "license": "ISC"
+    "body-parser": "^1.18.2",
+    "mongoose": "4.10.8",
+    "express": "^4.10.8",
+    "method-override": "^2.3.10",
+    "morgan": "^1.9.0"
+  }
 }

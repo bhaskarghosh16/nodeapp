@@ -1,37 +1,29 @@
-console.log("hello world");
-// Load the http module to create an http server.
-var http = require('http');
-var url = require("url");
+// set up ======================================================================
+var express = require('express');
+var app = express(); 						// create our app w/ express
+var mongoose = require('mongoose'); 				// mongoose for mongodb
+var port = process.env.PORT || 10000; 				// set the port
+var database = require('./config/database'); 			// load the database config
+var morgan = require('morgan');
+var bodyParser = require('body-parser');
+var methodOverride = require('method-override');
+
+// configuration ===============================================================
+mongoose.connect(database.localUrl); 	// Connect to local MongoDB instance. A remoteUrl is also available (modulus.io)
+console.log('Connected');
+app.use(express.static('./public')); 		// set the static files location /public/img will be /img for users
+app.use(morgan('dev')); // log every request to the console
+app.use(bodyParser.urlencoded({'extended': 'true'})); // parse application/x-www-form-urlencoded
+app.use(bodyParser.json()); // parse application/json
+app.use(bodyParser.json({type: 'application/vnd.api+json'})); // parse application/vnd.api+json as json
+app.use(methodOverride('X-HTTP-Method-Override')); // override with the X-HTTP-Method-Override header in the request
 
 
-// Configure our HTTP server to respond with Hello World to all requests.
-var server = http.createServer(function (request, response) {
-  var page = url.parse(request.url).pathname;
-  console.log(page);
-  response.writeHead(200, {"Content-Type": "text/html"});
-if(page == '/'){
+// routes ======================================================================
+require('./app/routes.js')(app);
 
-	response.end('<p>Hello World! Lets start ranking games.</p>');
-}
-else if (page =='/games'){
+console.log('Getting routes.js');
 
-	response.end('<p>We are getting the games loaded</p>');
-}
-else {
-	response.writeHead(404, {"Content-Type": "text/html"});
-	response.end('Sorry');
-}
-});
-
-// Listen on port 8000, IP defaults to 127.0.0.1
-server.listen(8000);
-
-// Put a friendly message on the terminal
-console.log("Server running at http://127.0.0.1:8000/");
-
-
-server.on('close', function() { // We listened to the close event
-    console.log('Goodbye!');
-})
-
-
+// listen (start app with node server.js) ======================================
+app.listen(port);
+console.log("App listening on port " + port);

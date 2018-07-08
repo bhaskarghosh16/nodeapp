@@ -1,0 +1,19 @@
+app
+	routes.js (getTodos -> getGames, /api/games : routing changed)
+	models
+		todo.js (model of the schema : Name changed from Todo to GameCollection)
+
+config
+	database.js  (database information)
+
+public
+	index.html
+	js
+		core.js  (gameController controller name), GameAnalyzer module name,gameService service 
+		controllers
+			main.js (gameController controller name)
+		services
+			todos.js (todoService to gameService)
+
+server.js
+package.json
